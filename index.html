@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Character Database</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+
+<h1>Character Database</h1>
+
+
+<nav class="tabs">
+
+    <div class="tab active" onclick="showPage('home')">
+        Characters
+    </div>
+
+    <div class="tab" onclick="showPage('create')">
+        Create Character
+    </div>
+
+    <div class="tab" onclick="showPage('tags')">
+        Tags
+    </div>
+
+</nav>
+
+
+
+<!-- CHARACTER HOME -->
+
+<section id="home">
+
+
+<h2>Character Home</h2>
+
+
+<input 
+id="searchInput"
+placeholder="Search by tag..."
+oninput="searchCharacters()">
+
+
+
+<div id="characterList">
+
+    No characters yet.
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- CREATE CHARACTER -->
+
+<section id="create" style="display:none;">
+
+
+<h2>Create Character</h2>
+
+
+
+<label>Name:</label>
+<input id="nameInput">
+
+
+<br><br>
+
+
+
+<label>Age:</label>
+<input id="ageInput">
+
+
+<br><br>
+
+
+
+<label>Species:</label>
+<input id="speciesInput">
+
+
+<br><br>
+
+
+
+<label>Tags:</label>
+
+
+<div id="selectedTags">
+
+    No tags selected.
+
+</div>
+
+
+
+<button onclick="openTagPicker()">
+
+    Add Tag
+
+</button>
+
+
+
+<div id="tagPicker" style="display:none;">
+
+    <h3>Select Tags</h3>
+
+    <div id="availableTags">
+
+    </div>
+
+</div>
+
+
+
+<br><br>
+
+
+
+<label>Personality:</label>
+
+<textarea id="personalityInput"></textarea>
+
+
+
+<br><br>
+
+
+
+<label>Abilities:</label>
+
+<textarea id="abilitiesInput"></textarea>
+
+
+
+<br><br>
+
+
+
+<label>Backstory:</label>
+
+<textarea id="storyInput"></textarea>
+
+
+
+<br><br>
+
+
+
+<button onclick="createCharacter()">
+
+Save Character
+
+</button>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- TAG CREATION PAGE -->
+
+
+<section id="tags" style="display:none;">
+
+
+<h2>Tag Manager</h2>
+
+
+
+<h3>Create Tag</h3>
+
+
+<label>Tag Name:</label>
+
+<input id="tagNameInput">
+
+
+
+<br><br>
+
+
+
+<label>Tag Color:</label>
+
+<input type="color" id="tagColorInput">
+
+
+
+<br><br>
+
+
+
+<button onclick="createTag()">
+
+Create Tag
+
+</button>
+
+
+
+
+<h3>Your Tags</h3>
+
+
+<div id="tagList">
+
+    No tags created.
+
+</div>
+
+
+
+</section>
+
+
+<div class="privacy-info">
+
+    ⓘ
+
+    <div class="privacy-tooltip">
+
+        <h3>Privacy Notice</h3>
+
+        <p>
+        Your data is stored locally in your browser.
+        I cannot access, view, or recover anything you create.
+        </p>
+
+        <p>
+        Clearing browser data, switching browsers,
+        or losing this device may permanently delete your projects.
+        </p>
+
+        <p>
+        Backup/export features are planned for the future.
+        </p>
+
+                <p>
+        TL;DR: BE CAREFUL WHEN CLEARING COOKIES/CASCHE.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>
