@@ -287,3 +287,40 @@ button:hover {
     display: block;
 
 }
+
+/* Character Images */
+
+.character-image {
+
+    display: block;
+
+    width: 200px;
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    margin: 0 auto 15px auto;
+
+    border-radius: 10px;
+
+}
+
+
+/* Image Preview */
+
+#imagePreview {
+
+    display: block;
+
+    max-width: 300px;
+
+    max-height: 400px;
+
+    object-fit: contain;
+
+    margin: 10px 0;
+
+    border-radius: 10px;
+
+}
