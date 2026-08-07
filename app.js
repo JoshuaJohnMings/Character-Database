@@ -8,6 +8,7 @@ let editingCharacterIndex = -1;
 
 let editingTagIndex = -1;
 
+let currentCharacterImage = null;
 
 // ======================================================
 // PAGE NAVIGATION
@@ -47,13 +48,15 @@ function createCharacter(){
 
     let character = {
 
-        name: name,
+    name: name,
 
-        age: document.getElementById("ageInput").value,
+    age: document.getElementById("ageInput").value,
 
-        species: document.getElementById("speciesInput").value,
+    species: document.getElementById("speciesInput").value,
 
-        tags: [...selectedTags],
+    image: currentCharacterImage,
+
+    tags: [...selectedTags],
 
         personality: document.getElementById("personalityInput").value,
 
@@ -101,6 +104,7 @@ function createCharacter(){
 
     resetCharacterForm();
 
+    removeCharacterImage();
 
     showPage("home");
 
@@ -136,6 +140,35 @@ function editCharacter(index){
 
 
     displaySelectedTags();
+
+    currentCharacterImage = character.image || null;
+
+
+if(currentCharacterImage){
+
+    document.getElementById(
+        "imagePreview"
+    ).src = currentCharacterImage;
+
+
+    document.getElementById(
+        "imagePreviewContainer"
+    ).style.display = "block";
+
+}
+
+else{
+
+    document.getElementById(
+        "imagePreview"
+    ).src = "";
+
+
+    document.getElementById(
+        "imagePreviewContainer"
+    ).style.display = "none";
+
+}
 
 
     document.getElementById("characterFormButtons").innerHTML = `
@@ -304,8 +337,22 @@ function displayCharacters(filteredCharacters = characters){
 
         list.innerHTML += `
 
-        <div class="character-card"
-             style="border-color:${firstColor}">
+    <div class="character-card"
+     style="border-color:${firstColor}">
+
+    ${character.image ? `
+
+        <img
+            src="${character.image}"
+            class="character-image"
+            alt="${character.name}"
+        >
+
+    ` : ""}
+
+    <div>
+
+        <h3>${character.name}</h3>
 
             <div>
 
@@ -1071,3 +1118,187 @@ function importData(event){
 displayCharacters();
 
 displayTags();
+
+// ======================================================
+// CHARACTER IMAGE UPLOAD
+// ======================================================
+
+function handleImageUpload(event){
+
+    let file = event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+
+    // Make sure the file is an accepted image type
+
+    let allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+
+    if(!allowedTypes.includes(file.type)){
+
+        alert(
+            "Please choose a JPG, PNG, or WEBP image."
+        );
+
+        event.target.value = "";
+
+        return;
+
+    }
+
+
+    // Maximum original file size: 10 MB
+
+    let maxSize = 10 * 1024 * 1024;
+
+
+    if(file.size > maxSize){
+
+        alert(
+            "That image is too large. " +
+            "Please choose an image smaller than 10 MB."
+        );
+
+        event.target.value = "";
+
+        return;
+
+    }
+
+
+    let reader = new FileReader();
+
+
+    reader.onload = function(e){
+
+        let image = new Image();
+
+
+        image.onload = function(){
+
+            let maxDimension = 1600;
+
+            let width = image.width;
+
+            let height = image.height;
+
+
+            // Resize while keeping the original aspect ratio
+
+            if(width > maxDimension || height > maxDimension){
+
+                if(width > height){
+
+                    height =
+                        Math.round(
+                            height *
+                            (maxDimension / width)
+                        );
+
+                    width = maxDimension;
+
+                }
+
+                else{
+
+                    width =
+                        Math.round(
+                            width *
+                            (maxDimension / height)
+                        );
+
+                    height = maxDimension;
+
+                }
+
+            }
+
+
+            // Create a canvas for resizing
+
+            let canvas =
+                document.createElement("canvas");
+
+
+            canvas.width = width;
+
+            canvas.height = height;
+
+
+            let context =
+                canvas.getContext("2d");
+
+
+            context.drawImage(
+                image,
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            // Convert to compressed WEBP
+
+            currentCharacterImage =
+                canvas.toDataURL(
+                    "image/webp",
+                    0.8
+                );
+
+
+            // Show preview
+
+            document.getElementById(
+                "imagePreview"
+            ).src = currentCharacterImage;
+
+
+            document.getElementById(
+                "imagePreviewContainer"
+            ).style.display = "block";
+
+        };
+
+
+        image.src = e.target.result;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+// ======================================================
+// REMOVE CHARACTER IMAGE
+// ======================================================
+
+function removeCharacterImage(){
+
+    currentCharacterImage = null;
+
+
+    document.getElementById(
+        "imageInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).src = "";
+
+
+    document.getElementById(
+        "imagePreviewContainer"
+    ).style.display = "none";
+
+}
