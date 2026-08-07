@@ -157,11 +157,13 @@ oninput="searchCharacters()">
 
 
 
-<button onclick="createCharacter()">
+<div id="characterFormButtons">
 
-Save Character
+    <button onclick="createCharacter()">
+        Save Character
+    </button>
 
-</button>
+</div>
 
 
 </section>
@@ -205,11 +207,13 @@ Save Character
 
 
 
-<button onclick="createTag()">
+<div id="tagFormButton">
 
-Create Tag
+    <button onclick="createTag()">
+        Create Tag
+    </button>
 
-</button>
+</div>
 
 
 
@@ -258,6 +262,27 @@ Create Tag
 
 </div>
 
+<div class="backup-tools">
+
+    <button onclick="exportData()">
+        Export Backup
+    </button>
+
+
+    <button onclick="document.getElementById('importFile').click()">
+        Import Backup
+    </button>
+
+
+    <input 
+        type="file" 
+        id="importFile" 
+        accept=".json"
+        style="display:none"
+        onchange="importData(event)"
+    >
+
+</div>
 
 <script src="app.js"></script>
 
