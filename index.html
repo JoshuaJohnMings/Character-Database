@@ -35,135 +35,192 @@
 
 <section id="home">
 
-
-<h2>Character Home</h2>
-
-
-<input 
-id="searchInput"
-placeholder="Search by tag..."
-oninput="searchCharacters()">
+    <h2>Character Home</h2>
 
 
-
-<div id="characterList">
-
-    No characters yet.
-
-</div>
-
-
-</section>
+    <input
+        id="searchInput"
+        placeholder="Search by tag..."
+        oninput="searchCharacters()"
+    >
 
 
+    <div id="characterList">
 
-
-
-<!-- CREATE CHARACTER -->
-
-<section id="create" style="display:none;">
-
-
-<h2>Create Character</h2>
-
-
-
-<label>Name:</label>
-<input id="nameInput">
-
-
-<br><br>
-
-
-
-<label>Age:</label>
-<input id="ageInput">
-
-
-<br><br>
-
-
-
-<label>Species:</label>
-<input id="speciesInput">
-
-
-<br><br>
-
-
-
-<label>Tags:</label>
-
-
-<div id="selectedTags">
-
-    No tags selected.
-
-</div>
-
-
-
-<button onclick="openTagPicker()">
-
-    Add Tag
-
-</button>
-
-
-
-<div id="tagPicker" style="display:none;">
-
-    <h3>Select Tags</h3>
-
-    <div id="availableTags">
+        No characters yet.
 
     </div>
 
-</div>
+</section>
 
 
 
-<br><br>
+<!-- CREATE / EDIT CHARACTER -->
+
+<section id="create" style="display:none;">
+
+    <h2>Create Character</h2>
+
+
+    <label>Name:</label>
+
+    <input id="nameInput">
+
+
+    <br><br>
+
+
+    <label>Age:</label>
+
+    <input id="ageInput">
+
+
+    <br><br>
+
+
+    <label>Species:</label>
+
+    <input id="speciesInput">
+
+
+    <br><br>
 
 
 
-<label>Personality:</label>
+    <!-- CHARACTER IMAGE -->
 
-<textarea id="personalityInput"></textarea>
+    <label>Character Image:</label>
 
+    <br>
 
-
-<br><br>
-
-
-
-<label>Abilities:</label>
-
-<textarea id="abilitiesInput"></textarea>
-
+    <input
+        type="file"
+        id="imageInput"
+        accept=".jpg,.jpeg,.png,.webp"
+        onchange="handleImageUpload(event)"
+    >
 
 
-<br><br>
+    <p>
+        JPG, PNG, or WEBP. Maximum file size: 10 MB.
+    </p>
+
+
+    <div
+        id="imagePreviewContainer"
+        style="display:none;"
+    >
+
+        <img
+            id="imagePreview"
+            alt="Character preview"
+        >
+
+
+        <br>
+
+
+        <button
+            type="button"
+            onclick="removeCharacterImage()"
+        >
+
+            Remove Image
+
+        </button>
+
+    </div>
+
+
+    <br><br>
 
 
 
-<label>Backstory:</label>
+    <!-- TAGS -->
 
-<textarea id="storyInput"></textarea>
-
-
-
-<br><br>
+    <label>Tags:</label>
 
 
+    <div id="selectedTags">
 
-<div id="characterFormButtons">
+        No tags selected.
 
-    <button onclick="createCharacter()">
-        Save Character
+    </div>
+
+
+    <button onclick="openTagPicker()">
+
+        Add Tag
+
     </button>
 
-</div>
+
+    <div
+        id="tagPicker"
+        style="display:none;"
+    >
+
+        <h3>Select Tags</h3>
+
+
+        <div id="availableTags">
+
+        </div>
+
+    </div>
+
+
+    <br><br>
+
+
+
+    <!-- PERSONALITY -->
+
+    <label>Personality:</label>
+
+
+    <textarea id="personalityInput"></textarea>
+
+
+    <br><br>
+
+
+
+    <!-- ABILITIES -->
+
+    <label>Abilities:</label>
+
+
+    <textarea id="abilitiesInput"></textarea>
+
+
+    <br><br>
+
+
+
+    <!-- BACKSTORY -->
+
+    <label>Backstory:</label>
+
+
+    <textarea id="storyInput"></textarea>
+
+
+    <br><br>
+
+
+
+    <!-- SAVE / EDIT BUTTONS -->
+
+    <div id="characterFormButtons">
+
+        <button onclick="createCharacter()">
+
+            Save Character
+
+        </button>
+
+    </div>
 
 
 </section>
@@ -172,117 +229,135 @@ oninput="searchCharacters()">
 
 
 
-
-
-<!-- TAG CREATION PAGE -->
-
+<!-- TAG MANAGER -->
 
 <section id="tags" style="display:none;">
 
-
-<h2>Tag Manager</h2>
-
+    <h2>Tag Manager</h2>
 
 
-<h3>Create Tag</h3>
+    <h3>Create Tag</h3>
 
 
-<label>Tag Name:</label>
+    <label>Tag Name:</label>
 
-<input id="tagNameInput">
-
-
-
-<br><br>
+    <input id="tagNameInput">
 
 
-
-<label>Tag Color:</label>
-
-<input type="color" id="tagColorInput">
+    <br><br>
 
 
+    <label>Tag Color:</label>
 
-<br><br>
-
-
-
-<div id="tagFormButton">
-
-    <button onclick="createTag()">
-        Create Tag
-    </button>
-
-</div>
+    <input
+        type="color"
+        id="tagColorInput"
+        value="#777777"
+    >
 
 
+    <br><br>
 
 
-<h3>Your Tags</h3>
+    <div id="tagFormButton">
+
+        <button onclick="createTag()">
+
+            Create Tag
+
+        </button>
+
+    </div>
 
 
-<div id="tagList">
-
-    No tags created.
-
-</div>
+    <h3>Your Tags</h3>
 
 
+    <div id="tagList">
+
+        No tags created.
+
+    </div>
 
 </section>
 
+
+
+<!-- PRIVACY INFORMATION -->
 
 <div class="privacy-info">
 
     ⓘ
 
+
     <div class="privacy-tooltip">
 
         <h3>Privacy Notice</h3>
 
-        <p>
-        Your data is stored locally in your browser.
-        I cannot access, view, or recover anything you create.
-        </p>
 
         <p>
-        Clearing browser data, switching browsers,
-        or losing this device may permanently delete your projects.
+            Your data is stored locally in your browser.
+            I cannot access, view, or recover anything you create.
         </p>
+
 
         <p>
-        Backup/export features are planned for the future.
+            Clearing browser data, switching browsers,
+            or losing this device may permanently delete
+            your projects.
         </p>
 
-                <p>
-        TL;DR: BE CAREFUL WHEN CLEARING COOKIES/CASCHE.
+
+        <p>
+            Use the Export Backup feature to keep a copy
+            of your database somewhere safe.
+        </p>
+
+
+        <p>
+            <strong>
+                TL;DR: BE CAREFUL WHEN CLEARING
+                COOKIES/CACHE.
+            </strong>
         </p>
 
     </div>
 
 </div>
 
+
+
+<!-- BACKUP TOOLS -->
+
 <div class="backup-tools">
 
     <button onclick="exportData()">
+
         Export Backup
+
     </button>
 
 
-    <button onclick="document.getElementById('importFile').click()">
+    <button
+        onclick="document.getElementById('importFile').click()"
+    >
+
         Import Backup
+
     </button>
 
 
-    <input 
-        type="file" 
-        id="importFile" 
+    <input
+        type="file"
+        id="importFile"
         accept=".json"
         style="display:none"
         onchange="importData(event)"
     >
 
 </div>
+
+
 
 <script src="app.js"></script>
 
